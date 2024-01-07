@@ -1,0 +1,38 @@
+body{
+    text-align: center;
+    background-color: rgb(234, 158, 96);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.status{
+    background-color: aliceblue;
+    border: 1px dashed solid double dotted #3498db;
+    padding: 4px;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    border: 2px dashed black;
+    margin: 4px;
+    padding: 10px;
+
+}
+
+#link a{
+    text-decoration: none;
+
+}
+.main>div{
+    width:45vw;
+}
+button{
+    border: 1px solid black;
+    border-radius: 25%;
+}
+button:active {
+    background-color: rgba(173, 78, 68, 0.642);
+}
+form>input{
+    height:3vh;
+    width: 200px;
+}

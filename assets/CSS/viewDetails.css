@@ -1,0 +1,55 @@
+/* Add your styles for viewDetails page here */
+body{
+    text-align: center;
+    background-color: rgb(234, 158, 96);
+    font-family: Arial, Helvetica, sans-serif;
+ 
+}
+.habit-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+#link a{
+    text-decoration: none;
+
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.day {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.status {
+    margin-right: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.flex-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+}
+
+.week{
+    text-align: center;
+    width:auto;
+    margin: 5px;
+}
+
+/* Customize as needed */
+

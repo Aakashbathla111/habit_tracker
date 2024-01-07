@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- rendering home page -->
+<head>
+    <link rel="stylesheet" href="/CSS/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" referrerpolicy="no-referrer" />      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <h1>Welcome to the app</h1>
+    <div id="link" style="position: relative;"> <!-- Add a relative position to the container -->
+            <a id="link" href="/view-details" style="position: fixed; top: 10px; right: 10px;">View Details</a>
+            <!-- Set position to absolute and top/right to 0 to stick it to the top right -->
+    </div> 
+
+    <form action="/add-to-list" method="POST">
+        <input type="text" name="value" required placeholder="Enter a task/habit">
+        <button type="submit">Add</button>
+    </form>
+    <!-- flash messages with noty library-->
+    <% if (flash.success && flash.success.length > 0) { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {    
+                new Noty({
+                    theme: 'relax',
+                    text: '<%= flash.success %>',
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                }).show();
+            });
+        </script>
+        
+    <% } %>
+    
+    <% if (flash.error && flash.error.length > 0) { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                new Noty({
+                    theme: 'relax',
+                    text: '<%= flash.error %>',
+                    type: 'error',
+                    layout: 'topRight',
+                    timeout: 1500
+                }).show();
+            });
+        </script>
+    <% } %>
+    <div>
+        <!-- Displaying all habits for current date with their status -->
+        <% if (habits && habits.length > 0) { %>
+            <div>
+                <h2>Habits for Today</h2>
+                <% for (let i = 0; i < habits.length; i++) { %>
+                    <div class="main">
+                        <% const currentDay = new Date().getDay(); %>
+                        <% const statusForToday = habits[i].weeklyStatus[currentDay].status; %>
+                        <% const habitId = habits[i]._id; %>
+                        <div class="cont" id="habit-<%= habits[i]._id %>">
+                            <h1><%= habits[i].value %></h1>
+                        </div>
+                        <div>
+                            <p>Status for Today: <span class="status" id="<%= habitId %>-status">
+                                    <%= statusForToday %>
+                                </span></p>
+                            <button onclick="updateStatus('<%= habitId %>', 'Completed')">Completed</button>
+                            <button onclick="updateStatus('<%= habitId %>', 'Unmarked')">Unmarked</button>
+                            <button onclick="updateStatus('<%= habitId %>', 'Not done')">Not Done</button>
+                        </div>
+                        <div>
+                            <form action="/delete-habit/<%= habits[i]._id %>" method="POST">
+                            <button type="submit">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% } else { %>
+            <p>Add a habit.</p>
+        <% } %>
+    </div>
+
+    <script src="/JS/home.js"></script>
+</body>
+
+</html>
